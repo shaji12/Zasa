@@ -2,8 +2,8 @@ package tests;
 
 import org.testng.annotations.Test;
 
+import Loginpages.LoginPage;
 import base.BaseTest;
-import pages.LoginPage;
 
 public class LoginTest extends BaseTest {
 
@@ -12,10 +12,9 @@ public class LoginTest extends BaseTest {
 
 		LoginPage loginPage = new LoginPage(driver);
 
-		loginPage.clickloginbutton();
-		loginPage.enterUsername("arshadazadad@yahoo.com");
+		loginPage.enterUsername("ajay@store.com");
 		loginPage.enterPassword("123456");
-		loginPage.clickloginandSelectStudentbutton();
+		loginPage.signinbutton();
 
 		System.out.println("Title of the page is " + driver.getTitle());
 	}

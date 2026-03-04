@@ -12,7 +12,7 @@ public class BaseTest {
 	public void setUp() {
 		
 		driver = new ChromeDriver();
-		driver.get("https://store-dev.globtech.in/");
+		driver.get("https://store-qa.globtech.in/login");
 		driver.manage().window().maximize();
 	}
 	
