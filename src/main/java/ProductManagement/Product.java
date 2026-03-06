@@ -1,59 +1,153 @@
 package ProductManagement;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Product {
-	
-	private WebDriver driver;
-	
-	private By ProductManagement = By.xpath("//span[contains(text(),'Product Management')]");
-	private By productsidemenu = By.xpath("//button[text()='Product']");
-	private By AddProduct = By.xpath("//button[text()='Add Product']");
-	private By ProductName = By.id("productname");
-	private By Categorydropdown = By.xpath("(//span[@class='text-[#71717A]'])[1]");
-	private By CategoryOption = By.xpath("//li//span[normalize-space()='Uniform']");
-	private By Description = By.xpath("(//div[@class='ql-editor ql-blank'])[1]");
-	private By selectbranddropdown = By.xpath("//span[contains(text(),'Select Brand')]");
-	private By branddropdownOption = By.xpath("//li//span[normalize-space()='NIMS']");
-	private By Itemtype_Field = By.xpath("//span[contains(text(),'Select Item Type')]");
-	private By ItemtypedropdownOption = By.xpath("//li//span[text()='ACCESSORY']");
-	private By Itemsize_Field = By.xpath("//span[contains(text(),'Select Item Size')]");
-	private By Itemsize_Dropdown_Option = By.xpath("//div//span[contains(text(),'105')]");
-	private By Gender_Field = By.xpath("//div//span[contains(text(),'Select Gender')]");
-	private By Gender_Dropdwon_Option = By.xpath("private By Gender_Field");
-	private By stockcategory_Field = By.xpath("//span[contains(text(),'Select Stock Category')]");
-	private By stockcategory_dropdown_option = By.xpath("//li//span[contains(text(),'Core Uniform')]");
-	private By SelectGrade_Field = By.xpath("//span[contains(text(),'Select Grade')]");
 
-	private By Grade_dropdown_Option = By.xpath("//div//span[contains(text(),'Pre-Primary')]");
-	private By Purchase_Price = By.id("price");
-	private By Selling_Price = By.id("sellingprice");
-	private By SelectInstitution = By.xpath("//span[contains(text(),'Select Institution')]");
-	private By selectInstitution_dropdown_Option = By
-			.xpath("//div//span[contains(text(),'New Indian Model School, Dubai')]");
-	
-	public Product(WebDriver driver) {
-		this.driver = driver;
-	}
-	
-	public void productmanagementdrop() {
-		driver.findElement(ProductManagement).click();
-	}
-	public void clickproductsidemenu() {
-		driver.findElement(productsidemenu).click();
-	}
-	
-	public void clickAddProduct() {
-		driver.findElement(AddProduct).click();
-	}
-	
-	public void Enterproductname(String productname) {
-		driver.findElement(ProductName).sendKeys(productname);
-	}
-	
-	public void selectCategory() {
-		driver.findElement(Categorydropdown).click();
-		driver.findElement(CategoryOption).click();
-	}
+    private WebDriver driver;
+
+    @FindBy(xpath = "//span[text()='Product Management']")
+    private WebElement productManagement;
+
+    @FindBy(xpath = "//button[text()='Product']")
+    private WebElement productSideMenu;
+
+    @FindBy(xpath = "//button[text()='Add Product']")
+    private WebElement addProduct;
+
+    @FindBy(id = "productname")
+    private WebElement productName;
+
+    @FindBy(xpath = "(//span[@class='text-[#71717A]'])[1]")
+    private WebElement categoryDropdown;
+
+    @FindBy(xpath = "//li//span[normalize-space()='Uniform']")
+    private WebElement categoryOption;
+
+    @FindBy(xpath = "(//div[@class='ql-editor ql-blank'])[1]")
+    private WebElement description;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Brand')]")
+    private WebElement brandDropdown;
+
+    @FindBy(xpath = "//li//span[normalize-space()='NIMS']")
+    private WebElement brandOption;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Item Type')]")
+    private WebElement itemTypeField;
+
+    @FindBy(xpath = "//li//span[text()='ACCESSORY']")
+    private WebElement itemTypeOption;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Item Size')]")
+    private WebElement itemSizeField;
+
+    @FindBy(xpath = "//div//span[contains(text(),'105')]")
+    private WebElement itemSizeOption;
+
+    @FindBy(xpath = "//div//span[contains(text(),'Select Gender')]")
+    private WebElement genderField;
+
+    @FindBy(xpath = "//li//span[contains(text(),'Male')]")
+    private WebElement genderOption;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Stock Category')]")
+    private WebElement stockCategoryField;
+
+    @FindBy(xpath = "//li//span[contains(text(),'Core Uniform')]")
+    private WebElement stockCategoryOption;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Grade')]")
+    private WebElement gradeField;
+
+    @FindBy(xpath = "//div//span[contains(text(),'Pre-Primary')]")
+    private WebElement gradeOption;
+
+    @FindBy(id = "price")
+    private WebElement purchasePrice;
+
+    @FindBy(id = "sellingprice")
+    private WebElement sellingPrice;
+
+    @FindBy(xpath = "//span[contains(text(),'Select Institution')]")
+    private WebElement selectInstitution;
+
+    @FindBy(xpath = "//div//span[contains(text(),'New Indian Model School, Dubai')]")
+    private WebElement institutionOption;
+    
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement submitbutton;
+
+    public Product(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+       
+    }
+
+    public void productmanagementdrop() {
+        Object wait;
+        wait.until(ExpectedConditions.elementToBeClickable(productManagement).click();
+    }
+    public void clickproductsidemenu() {
+        productSideMenu.click();
+    }
+
+    public void clickAddProduct() {
+        addProduct.click();
+    }
+
+    public void Enterproductname(String productname) {
+        productName.sendKeys(productname);
+    }
+
+    public void selectCategory() {
+        categoryDropdown.click();
+        categoryOption.click();
+    }
+
+    public void enterDescription(String descri) {
+        description.sendKeys(descri);
+    }
+
+    public void selectbrand() {
+        brandDropdown.click();
+        brandOption.click();
+    }
+
+    public void selectItemtype() {
+        itemTypeField.click();
+        itemTypeOption.click();
+    }
+    
+    public void selectitemSize() {
+    	itemSizeField.click();
+    	itemSizeOption.click();
+    }
+    
+    public void selectgenderField() {
+    	genderField.click();
+    	genderOption.click();
+    }
+    
+    public void enterpurchasePrice(String Price) {
+    	purchasePrice.sendKeys(Price);
+    	
+    }
+    
+    public void entersellingPrice(String sellingprice) {
+    	sellingPrice.sendKeys(sellingprice);
+    }
+    
+    public void enterInstitution() {
+    	selectInstitution.click();
+    	institutionOption.click();
+    }
+    
+    public void submit() {
+    	submitbutton.click();
+    }
 }
