@@ -20,6 +20,22 @@ public class Productscreen extends BaseTest{
 		Product AddProduct = new Product(driver);
 		AddProduct.productmanagementdrop();
 		AddProduct.clickproductsidemenu();
+
+	//	AddProduct.clickAddProduct();
+	//	AddProduct.enterProductName("Nike Green");
+	//	AddProduct.selectCategory();
+	//	AddProduct.enterDescription("Tested");
+	//	AddProduct.selectBrand();
+	//	AddProduct.selectItemType();
+	//	AddProduct.selectItemSize();
+	//	AddProduct.selectGender();
+	//	AddProduct.enterPurchasePrice("21");
+	//	AddProduct.enterSellingPrice("25");
+	//	AddProduct.selectInstitution();
+	//	AddProduct.clickSubmit();
+		
+		AddProduct.deleteProduct("nike");
+
 		
 	}
 
