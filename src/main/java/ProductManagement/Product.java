@@ -274,9 +274,4 @@ public class Product {
     	return deletedsuccess.getText();
     }
     
-//    public void deletepsroduct() {
-//    	clickElement(threeDotMenus);
-//    	clickElement(deleteOption);
-//    	clickElement(confirmDelete);
-//    }
 }
