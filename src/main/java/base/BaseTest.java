@@ -1,5 +1,7 @@
 package base;
 
+import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,8 +17,13 @@ public class BaseTest {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--incognito");
 		driver = new ChromeDriver(options);
-		driver.get("https://store-qa.globtech.in/login");
 		driver.manage().window().maximize();
+		
+		// Implicit Wait
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
+
+		driver.get("https://store-qa.globtech.in/login");
+		
 	}
 	
 	public void tearDown() {

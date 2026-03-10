@@ -6,7 +6,7 @@
       <class name="ProductManagementTest.Productscreen">
         <methods>
           <include name="setUp"/>
-          <include name="Addproduct"/>
+          <include name="addEditProductTest"/>
         </methods>
       </class> <!-- ProductManagementTest.Productscreen -->
     </classes>

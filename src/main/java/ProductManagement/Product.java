@@ -1,15 +1,31 @@
 package ProductManagement;
 
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Product {
 
     private WebDriver driver;
+    private WebDriverWait wait;
+    private JavascriptExecutor js;
 
+    public Product(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Increased for macOS
+        this.js = (JavascriptExecutor) driver;
+        PageFactory.initElements(driver, this);
+    }
+
+    // --- Add Product Locators ---
     @FindBy(xpath = "//span[text()='Product Management']")
     private WebElement productManagement;
 
@@ -33,15 +49,14 @@ public class Product {
 
     @FindBy(xpath = "//span[contains(text(),'Select Brand')]")
     private WebElement brandDropdown;
-
-    @FindBy(xpath = "//li//span[normalize-space()='NIMS']")
+    
+    @FindBy(xpath = "//div//span[text()='NIMS']")
     private WebElement brandOption;
 
     @FindBy(xpath = "//span[contains(text(),'Select Item Type')]")
     private WebElement itemTypeField;
 
-    @FindBy(xpath = "//li//span[text()='ACCESSORY']")
-    private WebElement itemTypeOption;
+    By itemTypeOption = By.xpath("//li//span[text()='ACCESSORY']");
 
     @FindBy(xpath = "//span[contains(text(),'Select Item Size')]")
     private WebElement itemSizeField;
@@ -52,19 +67,19 @@ public class Product {
     @FindBy(xpath = "//div//span[contains(text(),'Select Gender')]")
     private WebElement genderField;
 
-    @FindBy(xpath = "//li//span[contains(text(),'Male')]")
+    @FindBy(xpath = "//span[text()='All']")
     private WebElement genderOption;
-
-    @FindBy(xpath = "//span[contains(text(),'Select Stock Category')]")
+    
+    @FindBy(xpath = "//div[span[text()='Select Stock Category']]")
     private WebElement stockCategoryField;
-
-    @FindBy(xpath = "//li//span[contains(text(),'Core Uniform')]")
+    
+    @FindBy(xpath = "//li[span[text()='Core Uniform']]")
     private WebElement stockCategoryOption;
-
-    @FindBy(xpath = "//span[contains(text(),'Select Grade')]")
+    
+    @FindBy(xpath = "(//button[@aria-haspopup='dialog'])[2]")
     private WebElement gradeField;
-
-    @FindBy(xpath = "//div//span[contains(text(),'Pre-Primary')]")
+    
+    @FindBy(xpath ="(//div[contains(@class,'cursor-pointer px-2')])[3]")
     private WebElement gradeOption;
 
     @FindBy(id = "price")
@@ -78,76 +93,185 @@ public class Product {
 
     @FindBy(xpath = "//div//span[contains(text(),'New Indian Model School, Dubai')]")
     private WebElement institutionOption;
-    
+
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement submitbutton;
+    
+    @FindBy(xpath = "//div[text()='Product added successfully.']")
+    private WebElement successMessage;
 
-    public Product(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-       
+    // --- Edit Product Locators ---
+    @FindBy(xpath = "//input[@placeholder=\"Search by Product Name or Category\"]")
+    private WebElement Searchplaceholder;
+    
+    @FindBy(xpath = "(//button[@class='focus:outline-none'])[1]")
+    private WebElement threeDotMenuss;
+    
+    @FindBy(xpath = "//div[normalize-space()='Edit']")
+    private WebElement EditOption;
+    
+    @FindBy(xpath = "//input[@name=\"productname\"]")
+    private WebElement EditproductName;
+    
+    @FindBy(xpath ="//div[text() ='Product updated successfully.']")
+    private WebElement updatedsuccess;
+
+    // --- Delete Product Locators ---
+    @FindBy(xpath = "//table[@class='w-full divide-y divide-gray-200']")
+    List<WebElement> productNames;
+    
+    @FindBy(xpath ="(//button[@class='focus:outline-none'])[1]")
+    private WebElement threeDotMenus;
+    
+    @FindBy(xpath = "(//div[@role=\"menuitem\"])[3]")
+    private WebElement deleteOption;
+    
+    @FindBy(xpath = "//button[contains(text(),'OK')]")
+    private WebElement confirmDelete;
+    
+    @FindBy(xpath ="//div[text()='Product deleted successfully.']")
+    private WebElement deletedsuccess;
+
+    // ------------------- Methods -------------------
+
+    // Scroll and click helper (works on mac & Windows)
+    private void clickElement(WebElement element) {
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            element.click();
+        } catch (Exception e) {
+            js.executeScript("arguments[0].click();", element);
+        }
     }
 
+    // Clear input safely (including JS editors)
+    private void clearAndSendKeys(WebElement element, String text) {
+        try {
+            element.clear();
+        } catch (Exception e) {
+            js.executeScript("arguments[0].value='';", element);
+            js.executeScript("arguments[0].innerHTML='';", element);
+        }
+        element.sendKeys(text);
+    }
+
+    // ------------------- Add Product -------------------
     public void productmanagementdrop() {
-        Object wait;
-        wait.until(ExpectedConditions.elementToBeClickable(productManagement).click();
+        clickElement(productManagement);
     }
+
     public void clickproductsidemenu() {
-        productSideMenu.click();
+        clickElement(productSideMenu);
     }
 
     public void clickAddProduct() {
-        addProduct.click();
+        clickElement(addProduct);
     }
 
-    public void Enterproductname(String productname) {
-        productName.sendKeys(productname);
+    public void enterProductName(String name) {
+        clearAndSendKeys(productName, name);
     }
 
     public void selectCategory() {
-        categoryDropdown.click();
-        categoryOption.click();
+        clickElement(categoryDropdown);
+        clickElement(categoryOption);
     }
 
-    public void enterDescription(String descri) {
-        description.sendKeys(descri);
+    public void enterDescription(String desc) {
+        clearAndSendKeys(description, desc);
     }
 
-    public void selectbrand() {
-        brandDropdown.click();
-        brandOption.click();
+    public void selectBrand() {
+        clickElement(brandDropdown);
+        clickElement(brandOption);
     }
 
-    public void selectItemtype() {
-        itemTypeField.click();
-        itemTypeOption.click();
+    public void selectItemType() {
+        clickElement(itemTypeField);
+        WebElement typeOption = driver.findElement(itemTypeOption);
+        clickElement(typeOption);
+    }
+
+    public void selectItemSize() {
+        clickElement(itemSizeField);
+        clickElement(itemSizeOption);
+    }
+
+    public void selectGender() {
+        clickElement(genderField);
+        clickElement(genderOption);
     }
     
-    public void selectitemSize() {
-    	itemSizeField.click();
-    	itemSizeOption.click();
+    public void selectStockCategory() {
+        clickElement(stockCategoryField);
+        clickElement(stockCategoryOption);
     }
     
-    public void selectgenderField() {
-    	genderField.click();
-    	genderOption.click();
+    public void selectGrade() {
+        clickElement(gradeField);
+        clickElement(gradeOption);
     }
     
-    public void enterpurchasePrice(String Price) {
-    	purchasePrice.sendKeys(Price);
-    	
+    public void enterPurchasePrice(String price) {
+        clearAndSendKeys(purchasePrice, price);
+    }
+
+    public void enterSellingPrice(String price) {
+        clearAndSendKeys(sellingPrice, price);
+    }
+
+    public void selectInstitution() {
+        clickElement(selectInstitution);
+        clickElement(institutionOption);
+    }
+
+    public void clickSubmit() {
+        clickElement(submitbutton);
     }
     
-    public void entersellingPrice(String sellingprice) {
-    	sellingPrice.sendKeys(sellingprice);
+    public String getSuccessMessage() {
+        return successMessage.getText();
+    }
+
+    // ------------------- Edit Product -------------------
+    public void searchProduct(String productNameText) {
+        clearAndSendKeys(Searchplaceholder, productNameText);
+    }
+ 
+    public void openEditMenu() {
+        clickElement(threeDotMenuss);
+        clickElement(EditOption);
+    }
+ 
+    public void changeProductName(String name) {
+    	clickElement(EditproductName);
+    	clearAndSendKeys(EditproductName, name);
+    }
+ 
+    public void clickSaveButton() {
+        clickElement(submitbutton);
     }
     
-    public void enterInstitution() {
-    	selectInstitution.click();
-    	institutionOption.click();
+    public String getupdatedsucess() {
+    	return updatedsuccess.getText();
+    }
+
+    // ------------------- Delete Product -------------------
+    
+    
+    public void searchProducts(String searchproducts) {
+    	clearAndSendKeys(Searchplaceholder,searchproducts );
     }
     
-    public void submit() {
-    	submitbutton.click();
+    public void deleteproduct() {
+    	clickElement(threeDotMenus);
+    	clickElement(deleteOption);
+    	clickElement(confirmDelete);
     }
+    
+    public String deletedsuccess() {
+    	return deletedsuccess.getText();
+    }
+    
 }
