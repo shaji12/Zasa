@@ -6,7 +6,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class Productkit {
 
+    //contract
     private WebDriver driver;
+    public Productkit(WebDriver driver) {
+        this.driver=driver;
+    }
 
     // --- Add Productkit Locators ---
     @FindBy(xpath = "//span[text()='Product Management']")
@@ -29,6 +33,9 @@ public class Productkit {
 
     @FindBy(xpath = "(//div[@class='ql-editor ql-blank'])[1]")
     private WebElement description;
+
+    @FindBy(xpath = "//div//span[text()='Add Product Size Chart']")
+    private WebElement AddProductSizeChart;
 
     @FindBy(xpath = "//div//span[text()='Select an option...']")
     private WebElement kitTypeField;
@@ -57,7 +64,8 @@ public class Productkit {
     @FindBy(xpath = "//input[@placeholder='Search Item Code / Item Name / Barcode']")
     private WebElement itemField;
 
-    //
+    @FindBy(xpath = "//div//div[text()='Hive uniforms']")
+    private WebElement itemOption;
 
     @FindBy(xpath = "//div[text()='Item Added!']")
     private WebElement itemAddedSuccess;
@@ -72,7 +80,67 @@ public class Productkit {
     private WebElement saveProductKit;
 
 
+    // ------------------- Methods -------------------
 
+    public void sidemenu(){
+        productManagement.click();
+        productkitSideMenu.click();
+    }
+    public void addproduct(){
+        addkitbutton.click();
+    }
 
+    public void enterkitName(String name){
+        enterkitName.sendKeys();
+    }
+
+    public void selectcategory(){
+        categoryDropdown.click();
+        categoryOption.click();
+    }
+
+    public void description(String descr){
+        description.sendKeys();
+    }
+
+    public void SizeChartImage(){
+        AddProductSizeChart.sendKeys();
+    }
+
+    public void kitType(){
+        kitTypeField.click();
+        kitTypeOption.click();
+    }
+
+    public void selectgender(){
+        genderField.click();
+        genderOption.click();
+    }
+
+    public void institution(){
+        institutionField.click();
+        InstitutionOption.click();
+    }
+
+    public void grade(){
+        gradeField.click();
+        gradeOption.click();
+    }
+    public void selectitem(){
+        itemField.click();
+        itemOption.click();
+    }
+    public String itemAddedSuccess(){
+        return itemAddedSuccess.getText();
+    }
+
+    public void kitStatusType(){
+        kitStatusTypeField.click();
+        kitStatusTypeOption.click();
+    }
+
+    public void saveProductKit(){
+        saveProductKit.click();
+    }
 
 }
