@@ -1,15 +1,27 @@
 package ProductManagement;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Productkit {
 
     //contract
     private WebDriver driver;
+    private WebDriverWait wait;
+    private JavascriptExecutor js;
     public Productkit(WebDriver driver) {
         this.driver=driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.js = (JavascriptExecutor) driver;
+        PageFactory.initElements(driver, this);
+
     }
 
     // --- Add Productkit Locators ---
@@ -81,17 +93,38 @@ public class Productkit {
 
 
     // ------------------- Methods -------------------
+    // Scroll and click helper (works on mac & Windows)
+
+    public void clickElements(WebElement element){
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+        try{
+            element.click();
+        } catch (Exception e){
+            js.executeScript("arguments[0].click();", element);
+        }
+    }
+
+    public void clearandsendkey(WebElement element, String text){
+        try {
+            element.clear();
+        } catch (Exception e){
+            js.executeScript("arguments[0].value='';", element);
+            js.executeScript("arguments[0].innerHTML='';", element);
+        }
+        element.sendKeys(text);
+    }
 
     public void sidemenu(){
-        productManagement.click();
-        productkitSideMenu.click();
+        clickElements(productManagement);
+        clickElements(productkitSideMenu);
     }
     public void addproduct(){
-        addkitbutton.click();
+        clickElements(addkitbutton);
     }
 
     public void enterkitName(String name){
-        enterkitName.sendKeys();
+        clearandsendkey(enterkitName, name);
     }
 
     public void selectcategory(){
@@ -100,7 +133,7 @@ public class Productkit {
     }
 
     public void description(String descr){
-        description.sendKeys();
+        clearandsendkey(description, descr);
     }
 
     public void SizeChartImage(){
@@ -108,35 +141,35 @@ public class Productkit {
     }
 
     public void kitType(){
-        kitTypeField.click();
-        kitTypeOption.click();
+        clickElements(kitTypeField);
+        clickElements(kitTypeOption);
     }
 
     public void selectgender(){
-        genderField.click();
-        genderOption.click();
+        clickElements(genderField);
+        clickElements(genderOption);
     }
 
     public void institution(){
-        institutionField.click();
-        InstitutionOption.click();
+        clickElements(institutionField);
+        clickElements(InstitutionOption);
     }
 
     public void grade(){
-        gradeField.click();
-        gradeOption.click();
+        clickElements(gradeField);
+        clickElements(gradeOption);
     }
     public void selectitem(){
-        itemField.click();
-        itemOption.click();
+        clickElements(itemField);
+        clickElements(itemOption);
     }
     public String itemAddedSuccess(){
         return itemAddedSuccess.getText();
     }
 
     public void kitStatusType(){
-        kitStatusTypeField.click();
-        kitStatusTypeOption.click();
+        clickElements(kitStatusTypeField);
+        clickElements(kitStatusTypeOption);
     }
 
     public void saveProductKit(){

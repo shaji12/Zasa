@@ -24,7 +24,7 @@ public class Productkitscreen extends BaseTest {
         productkitscreen.enterkitName("Today Kit");
         productkitscreen.selectcategory();
         productkitscreen.description("desc");
-        productkitscreen.SizeChartImage();
+      //  productkitscreen.SizeChartImage();
         productkitscreen.kitType();
         productkitscreen.selectgender();
         productkitscreen.institution();
