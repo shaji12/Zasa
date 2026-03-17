@@ -58,7 +58,7 @@ public class Productscreen extends BaseTest {
         Assert.assertEquals(actualMessages, expectedMessages);
 
         // Delete Product
-        productPage.searchProducts("Test Automation Product");
+        productPage.searchProducts("Test Automation Produ");
         productPage.deleteproduct();
         String deleteactualMessage = productPage.deletedsuccess();
         String deleteexpectedMessage = "Product deleted successfully.";

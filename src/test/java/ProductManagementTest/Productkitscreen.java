@@ -20,22 +20,33 @@ public class Productkitscreen extends BaseTest {
         Productkit productkitscreen = new Productkit(driver);
 
         productkitscreen.sidemenu();
-        productkitscreen.addproduct();
-        productkitscreen.enterkitName("Today Kit");
-        productkitscreen.selectcategory();
-        productkitscreen.description("desc");
-      //  productkitscreen.SizeChartImage();
-        productkitscreen.kitType();
-        productkitscreen.selectgender();
-        productkitscreen.institution();
-        productkitscreen.grade();
-        productkitscreen.selectitem();
+        try {
+            productkitscreen.addproduct();
+            productkitscreen.enterkitName("Today Kit");
+            productkitscreen.selectcategory();
+            productkitscreen.description("desc");
+            productkitscreen.SizeChartImage("C:\\Users\\ANANDU\\Downloads\\blog (1).webp");
+            productkitscreen.kitType();
+            productkitscreen.selectgender();
+            productkitscreen.institution();
+            productkitscreen.grade();
+            productkitscreen.selectitem("yellow");
 
-        String actual = productkitscreen.itemAddedSuccess();
-        String Expected = "Item Added!";
-        Assert.assertEquals(actual,Expected);
+            String actual = productkitscreen.itemAddedSuccess();
+            String Expected = "Item Added!";
+            Assert.assertEquals(actual, Expected);
+            System.out.println(actual);
 
-        productkitscreen.kitStatusType();
-        productkitscreen.saveProductKit();
+            productkitscreen.kitStatusType();
+            productkitscreen.saveProductKit();
+
+            String actualmessage = productkitscreen.productkitsuccessMessage();
+            String expectedmessage = "Product kit added successfully.";
+            Assert.assertEquals(actualmessage, expectedmessage);
+        }catch (AssertionError | Exception e){
+            System.out.println("Product creation failed!");
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

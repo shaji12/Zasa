@@ -76,10 +76,10 @@ public class Productkit {
     @FindBy(xpath = "//input[@placeholder='Search Item Code / Item Name / Barcode']")
     private WebElement itemField;
 
-    @FindBy(xpath = "//div//div[text()='Hive uniforms']")
+    @FindBy(xpath = "//div[text() = 'yellow shirt']")
     private WebElement itemOption;
 
-    @FindBy(xpath = "//div[text()='Item Added!']")
+    @FindBy(xpath = "(//div[text()='Item Added!'])[1]")
     private WebElement itemAddedSuccess;
 
     @FindBy(xpath = "//div//span[text()='Select Kit Status Type']")
@@ -90,6 +90,9 @@ public class Productkit {
 
     @FindBy(xpath = "//button[text()='Save Product Kit']")
     private WebElement saveProductKit;
+
+    @FindBy(xpath = "(//div[text()='Product kit added successfully.'])[2]")
+    private WebElement productkitsuccess;
 
 
     // ------------------- Methods -------------------
@@ -136,8 +139,8 @@ public class Productkit {
         clearandsendkey(description, descr);
     }
 
-    public void SizeChartImage(){
-        AddProductSizeChart.sendKeys();
+    public void SizeChartImage(String filePath){
+        AddProductSizeChart.sendKeys(filePath);
     }
 
     public void kitType(){
@@ -159,12 +162,15 @@ public class Productkit {
         clickElements(gradeField);
         clickElements(gradeOption);
     }
-    public void selectitem(){
-        clickElements(itemField);
+    public void selectitem(String name){
+        clearandsendkey(itemField, name);
         clickElements(itemOption);
     }
     public String itemAddedSuccess(){
-        return itemAddedSuccess.getText();
+        WebElement message = wait.until(
+          ExpectedConditions.visibilityOf(itemAddedSuccess)
+        );
+        return message.getText();
     }
 
     public void kitStatusType(){
@@ -174,6 +180,10 @@ public class Productkit {
 
     public void saveProductKit(){
         saveProductKit.click();
+    }
+
+    public String productkitsuccessMessage(){
+        return productkitsuccess.getText();
     }
 
 }
