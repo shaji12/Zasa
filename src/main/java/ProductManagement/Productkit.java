@@ -1,14 +1,13 @@
 package ProductManagement;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class Productkit {
 
@@ -46,7 +45,7 @@ public class Productkit {
     @FindBy(xpath = "(//div[@class='ql-editor ql-blank'])[1]")
     private WebElement description;
 
-    @FindBy(xpath = "//div//span[text()='Add Product Size Chart']")
+    @FindBy(id = "product-size-chart")
     private WebElement AddProductSizeChart;
 
     @FindBy(xpath = "//div//span[text()='Select an option...']")
@@ -94,17 +93,41 @@ public class Productkit {
     @FindBy(xpath = "(//div[text()='Product kit added successfully.'])[2]")
     private WebElement productkitsuccess;
 
+    @FindBy(xpath = "//input[@placeholder=\"Search by Kit Name and Category\"]")
+    private WebElement SearchBar;
+
+    @FindBy(xpath = "(//button[@class='focus:outline-none'])[1]")
+    private WebElement threeDotMenuss;
+
+    @FindBy(xpath = "//div[@role='menuitem' and normalize-space()='Copy']")
+    private WebElement Copybutton;
+
+    @FindBy(xpath = "//span[normalize-space()='Select Institution']")
+    private WebElement Institution;
+
+    @FindBy(xpath = "//div//span[normalize-space()='New Indian Model School,Sharjah']")
+    private WebElement SelectInstitution;
+
+    @FindBy (xpath = "//button[text()='Copy Kit']")
+    private WebElement Copykitbutton;
+
+    @FindBy(xpath = "//button[text()='Close']")
+    private WebElement CopyKitResultCloseButton;
+
+
 
     // ------------------- Methods -------------------
     // Scroll and click helper (works on mac & Windows)
 
-    public void clickElements(WebElement element){
+    public void clickElements(WebElement element, String elementName){
         js.executeScript("arguments[0].scrollIntoView(true);", element);
         wait.until(ExpectedConditions.elementToBeClickable(element));
         try{
             element.click();
+            System.out.println("clicked on:" + elementName);
         } catch (Exception e){
             js.executeScript("arguments[0].click();", element);
+            System.out.println("Clicked using JS on: " + elementName);
         }
     }
 
@@ -119,11 +142,11 @@ public class Productkit {
     }
 
     public void sidemenu(){
-        clickElements(productManagement);
-        clickElements(productkitSideMenu);
+        clickElements(productManagement, "Product Management");
+        clickElements(productkitSideMenu, "Product Kit Menu");
     }
     public void addproduct(){
-        clickElements(addkitbutton);
+        clickElements(addkitbutton, "Add Kit Button ");
     }
 
     public void enterkitName(String name){
@@ -144,27 +167,27 @@ public class Productkit {
     }
 
     public void kitType(){
-        clickElements(kitTypeField);
-        clickElements(kitTypeOption);
+        clickElements(kitTypeField, "Kit Type Field");
+        clickElements(kitTypeOption, "Kit Type Option");
     }
 
     public void selectgender(){
-        clickElements(genderField);
-        clickElements(genderOption);
+        clickElements(genderField, "gender Field");
+        clickElements(genderOption, "Gender Option");
     }
 
     public void institution(){
-        clickElements(institutionField);
-        clickElements(InstitutionOption);
+        clickElements(institutionField, "Institution Field");
+        clickElements(InstitutionOption, "Institution Option");
     }
 
     public void grade(){
-        clickElements(gradeField);
-        clickElements(gradeOption);
+        clickElements(gradeField, "grade Field");
+        clickElements(gradeOption, "gradeOption");
     }
     public void selectitem(String name){
         clearandsendkey(itemField, name);
-        clickElements(itemOption);
+        clickElements(itemOption, "Item Option");
     }
     public String itemAddedSuccess(){
         WebElement message = wait.until(
@@ -174,16 +197,56 @@ public class Productkit {
     }
 
     public void kitStatusType(){
-        clickElements(kitStatusTypeField);
-        clickElements(kitStatusTypeOption);
+        clickElements(kitStatusTypeField, "kitStatusType Field");
+        clickElements(kitStatusTypeOption, "kitStatusType Option");
+
     }
 
     public void saveProductKit(){
         saveProductKit.click();
     }
-
     public String productkitsuccessMessage(){
         return productkitsuccess.getText();
     }
 
+    //Copy
+
+    public void searchproduct(String name){
+        clearandsendkey(SearchBar, name);
+    }
+    // ===================== ACTION METHODS =====================
+
+    public void copyKitToInstitution(){
+        clickThreeDotMenu();
+        clickCopyOption();
+        openInstitutionDropdown();
+        selectInstitutionOption();
+        clickCopyKitButton();
+        closeCopyPopup();
+    }
+    // ===================== STEP METHODS =====================
+
+    private void clickThreeDotMenu(){
+        clickElements(threeDotMenuss, "Three Dot Menu");
+    }
+
+    private void clickCopyOption(){
+        clickElements(Copybutton, "Copy Option");
+    }
+
+    private void openInstitutionDropdown(){
+        clickElements(Institution, "Institution Dropdown");
+    }
+
+    private void selectInstitutionOption(){
+        clickElements(SelectInstitution, "Select Institution");
+    }
+
+    private void clickCopyKitButton(){
+        clickElements(Copykitbutton, "Copy Kit Button");
+    }
+
+    private void closeCopyPopup(){
+        clickElements(CopyKitResultCloseButton, "Close Button");
+    }
 }

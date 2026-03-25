@@ -48,5 +48,7 @@ public class Productkitscreen extends BaseTest {
             e.printStackTrace();
             throw e;
         }
+
+        productkitscreen.copyKitToInstitution();
     }
 }
