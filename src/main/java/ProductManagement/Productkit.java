@@ -214,6 +214,7 @@ public class Productkit {
     public void searchproduct(String name){
         clearandsendkey(SearchBar, name);
     }
+
     // ===================== ACTION METHODS =====================
 
     public void copyKitToInstitution(){

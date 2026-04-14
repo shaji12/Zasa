@@ -20,3 +20,10 @@ public class LoginTest extends BaseTest {
 	}
 
 }
+
+//✅ ThreadLocal (parallel-safe)
+//✅ POM (Page Object Model)
+//✅ TestNG Listener (logs + screenshots)
+//✅ ExtentReports (full integration)
+//✅ Retry Analyzer
+//✅ CI/CD ready (Maven + Jenkins compatible structure)

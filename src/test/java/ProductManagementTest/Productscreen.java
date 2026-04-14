@@ -26,43 +26,64 @@ public class Productscreen extends BaseTest {
         productPage.clickproductsidemenu();
 
         // Add Product
-        productPage.clickAddProduct();
-        productPage.enterProductName("Nike Green");
-        productPage.selectCategory();
-        productPage.enterDescription("Tested");
-        productPage.selectBrand();
-        productPage.selectItemType();
-        productPage.selectItemSize();
-        productPage.selectGender();
-        productPage.selectStockCategory();
-        productPage.selectGrade();
-        productPage.enterPurchasePrice("21");
-        productPage.enterSellingPrice("25");
-        productPage.selectInstitution();
-        productPage.clickSubmit();
+        try {
+            productPage.clickAddProduct();
+            productPage.enterProductName("Nike Green");
+            productPage.selectCategory();
+            productPage.enterDescription("Tested");
+            productPage.selectBrand();
+            productPage.selectItemType();
+            productPage.selectItemSize();
+            productPage.selectGender();
+            productPage.selectStockCategory();
+            productPage.selectGrade();
+            productPage.enterPurchasePrice("21");
+            productPage.enterSellingPrice("25");
+            productPage.selectInstitution();
+            productPage.clickSubmit();
 
-        // Validate Success Message
-        String actualMessage = productPage.getSuccessMessage();
-        String expectedMessage = "Product added successfully.";
+            // Validate Success Message
+            String actualMessage = productPage.getSuccessMessage();
+            //String expectedMessage = "Product added successfully.";
 
-        Assert.assertEquals(actualMessage, expectedMessage, "Product creation failed!");
+            Assert.assertEquals(actualMessage, "Product added successfully.");
+            System.out.println("Add Product Success");
+        } catch (Exception e){
+            System.out.println("Add product Failed: " + e.getMessage() );
+            e.printStackTrace();
+            Assert.fail("Add product Failed");
+        }
 
-        // Edit Product
-        productPage.searchProduct("Nike Green");
-        productPage.openEditMenu();
-        productPage.changeProductName("Test Automation Product");
-        productPage.clickSaveButton();
-        String actualMessages = productPage.getupdatedsucess();
-        String expectedMessages = "Product updated successfully.";
-        
-        Assert.assertEquals(actualMessages, expectedMessages);
+        // ================= EDIT PRODUCT =================
+        try {
+            productPage.searchProduct("Nike Green");
+            productPage.openEditMenu();
+            productPage.changeProductName("Test Automation Product");
+            productPage.clickSaveButton();
+            String actualMessages = productPage.getupdatedsucess();
+            //String expectedMessages = "Product updated successfully.";
+
+            Assert.assertEquals(actualMessages, "Product updated successfully.");
+            System.out.println("EDIT PRODUCT SUCCESS");
+        }catch (Exception e){
+            System.out.println("EDIT PRODUCT FAILED:"+ e.getMessage());
+            e.printStackTrace();
+            Assert.fail("EDIT PRODUCT FAILED");
+        }
 
         // Delete Product
-        productPage.searchProducts("Test Automation Produ");
-        productPage.deleteproduct();
-        String deleteactualMessage = productPage.deletedsuccess();
-        String deleteexpectedMessage = "Product deleted successfully.";
-        Assert.assertEquals(deleteactualMessage, deleteexpectedMessage);
+        try {
+            productPage.searchProducts("Test Automation Produ");
+            productPage.deleteproduct();
+            String deleteactualMessage = productPage.deletedsuccess();
+            //String deleteexpectedMessage = "Product deleted successfully.";
+            Assert.assertEquals(deleteactualMessage, "Product deleted successfully.");
+            System.out.println("DELETE PRODUCT SUCCESS");
+        }catch (Exception e){
+            System.out.println("EDIT PRODUCT FAILED:"+ e.getMessage());
+            e.printStackTrace();
+            Assert.fail("EDIT PRODUCT FAILED");
+        }
 
 
     }
