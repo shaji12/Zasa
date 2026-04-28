@@ -1,5 +1,6 @@
 package ProductManagementTest;
 
+import factory.DriverFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -13,13 +14,13 @@ public class Productscreen extends BaseTest {
     public void addEditProductTest() {
 
         // Login
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
         loginPage.enterUsername("ajay@store.com");
         loginPage.enterPassword("123456");
         loginPage.signinbutton();
 
         // Product Page
-        Product productPage = new Product(driver);
+        Product productPage = new Product(DriverFactory.getDriver());
 
         // Navigate to Product Screen
         productPage.productmanagementdrop();

@@ -3,6 +3,7 @@ package ProductManagementTest;
 import Loginpages.LoginPage;
 import ProductManagement.Productkit;
 import base.BaseTest;
+import factory.DriverFactory;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,12 +13,12 @@ public class Productkitscreen extends BaseTest {
     public void productkit(){
 
         // Login
-        LoginPage loginPage = new LoginPage(driver);
+        LoginPage loginPage = new LoginPage(DriverFactory.getDriver());
         loginPage.enterUsername("ajay@store.com");
         loginPage.enterPassword("123456");
         loginPage.signinbutton();
 
-        Productkit productkitscreen = new Productkit(driver);
+        Productkit productkitscreen = new Productkit(DriverFactory.getDriver());
 
         productkitscreen.sidemenu();
         productkitscreen.addproduct();
