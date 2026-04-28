@@ -152,6 +152,7 @@ public class Product {
         } catch (Exception e) {
             js.executeScript("arguments[0].value='';", element);
             js.executeScript("arguments[0].innerHTML='';", element);
+            //js.executeScript("arguments[0].value=''; arguments[0].dispatchEvent(new Event('input'));", element);
         }
         element.sendKeys(text);
     }
