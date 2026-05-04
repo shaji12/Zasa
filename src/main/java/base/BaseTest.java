@@ -21,7 +21,7 @@ public class BaseTest {
 		String url = ConfigReader.get("url");
 
 		DriverFactory.initDriver(browser);
-
+		driver = DriverFactory.getDriver();
 		DriverFactory.getDriver().get(url);
 	}
 
